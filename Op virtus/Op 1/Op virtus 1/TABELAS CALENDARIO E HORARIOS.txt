@@ -1,0 +1,31 @@
+let
+    Fonte = OCORRENCIAS,
+    MenorData = List.Min(Fonte[DATA OCORRÊNCIA]),
+    MaiorData = List.Max(Fonte[DATA OCORRÊNCIA]),
+    ListaDatas = List.Dates(MenorData, Duration.Days(MaiorData - MenorData) + 1, #duration(1, 0, 0, 0)),
+    TabelaCalendario = Table.FromList(ListaDatas, Splitter.SplitByNothing(), {"DATA"}),
+    AdicionaAno = Table.AddColumn(TabelaCalendario, "ANO", each Date.Year([DATA]), Int64.Type),
+    AdicionaMes = Table.AddColumn(AdicionaAno, "MÊS", each Date.Month([DATA]), Int64.Type),
+    AdicionaDia = Table.AddColumn(AdicionaMes, "DIA", each Date.Day([DATA]), Int64.Type),
+    AdicionaNomeMes = Table.AddColumn(AdicionaDia, "NOME MÊS", each Date.ToText([DATA], "MMMM"), type text),
+    AdicionaNomeDiaSemana = Table.AddColumn(AdicionaNomeMes, "DIA DA SEMANA", each Date.ToText([DATA], "dddd"), type text),
+    #"Tipo Alterado" = Table.TransformColumnTypes(AdicionaNomeDiaSemana,{{"DATA", type date}, {"ANO", type text}, {"MÊS", type text}, {"DIA", type text}, {"NOME MÊS", type text}, {"DIA DA SEMANA", type text}})
+in
+    #"Tipo Alterado"
+	
+	
+--------------------------------------------------
+
+let
+    Fonte = OCORRENCIAS,
+    MenorHorario = List.Min(Fonte[HORÁRIO OCORRÊNCIA]),
+    MaiorHorario = List.Max(Fonte[HORÁRIO OCORRÊNCIA]),
+    TotalSegundos = Duration.TotalSeconds(MaiorHorario - MenorHorario),
+    ListaHorarios = List.Transform({0..TotalSegundos}, each MenorHorario + #duration(0, 0, 0, _)),
+    TabelaHorarios = Table.FromList(ListaHorarios, Splitter.SplitByNothing(), {"HORÁRIO"}),
+    AdicionaHora = Table.AddColumn(TabelaHorarios, "HORA", each Time.Hour([HORÁRIO]), Int64.Type),
+    AdicionaMinuto = Table.AddColumn(AdicionaHora, "MINUTO", each Time.Minute([HORÁRIO]), Int64.Type),
+    AdicionaSegundo = Table.AddColumn(AdicionaMinuto, "SEGUNDO", each Time.Second([HORÁRIO]), Int64.Type),
+    #"Tipo Alterado" = Table.TransformColumnTypes(AdicionaSegundo,{{"HORA", type text}, {"MINUTO", type text}, {"SEGUNDO", type text}, {"HORÁRIO", type time}})
+in
+    #"Tipo Alterado"
