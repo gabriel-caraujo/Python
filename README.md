@@ -1,4 +1,5 @@
-<h1>atualizações</h1>
+# Python 🐍 #
 
-<p>Arquivos das praticas e aulas de Pandas e Matlib, estão em branchs com os respectivos nomes</p>
-<H1>Arquivos das lições de Pandas para utlização em ciencia de dados</H1>
+### - Neste repositório se encontram  os códigos de exercícios e aulas e projetos em linguagem Python ###
+
+### - Também utilizando as bibliotecas Matplotlib 📈, Pandas 🐼 e  Numpy ###
