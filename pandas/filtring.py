@@ -1,7 +1,7 @@
 import pandas as pd
 
 # importar em formato csv
-df = pd.read_csv('data.csv')
+df = pd.read_csv('../Projetos/pokemon-pandas-matplot/data.csv')
 
 #tall_pokemon = df[df['Height'] >= 2]
 

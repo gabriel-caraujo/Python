@@ -4,7 +4,7 @@ import pandas as pd
 #df = pd.read_csv('data.csv')
 
 #mudar index do arquivo
-df = pd.read_csv('data.csv', index_col='Name')
+df = pd.read_csv('../Projetos/pokemon-pandas-matplot/data.csv', index_col='Name')
 
 # solicitando o dado a ser procurado
 pokemon = input ('enter a Pokemon name: ')
